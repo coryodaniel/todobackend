@@ -1,0 +1,14 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:11.3-alpine
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./tmp/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
