@@ -8,6 +8,7 @@ URL="${PROTOCOL}://${HOST}:${PORT}${PATH_ROOT}"
 get:
 	curl -i -H "Accept: application/json" ${URL}
 
+.PHONY: setup
 setup:
 	@-docker stop postgres
 	@-docker rm postgres
@@ -19,6 +20,11 @@ setup:
 	mix test
 	mix phx.server
 
+.PHONY: heroku
 heroku:
 	git push heroku master
 	heroku run mix ecto.migrate
+	
+.PHONY: spec
+spec:
+	open http://todobackend.com/specs/index.html?https://todobackend-phoenix-postgres.herokuapp.com/api/todos
