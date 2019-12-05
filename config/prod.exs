@@ -10,8 +10,8 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :todobackend, TodobackendWeb.Endpoint,
-  http: [port: {:system, "PORT"}],
-  url: [host: "todobackend-phoenix-postgres.herokuapp.com", port: 80],
+  url: [scheme: "https", host: "todobackend-phoenix-postgres.herokuapp.com", port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
