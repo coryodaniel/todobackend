@@ -21,3 +21,5 @@ setup:
 
 heroku:
 	git push heroku master
+	heroku run mix ecto.create
+	heroku run mix ecto.migrate
