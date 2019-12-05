@@ -28,14 +28,14 @@ defmodule TodobackendWeb.TodoControllerTest do
   describe "index" do
     test "lists all todos", %{conn: conn} do
       conn = get(conn, Routes.todo_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+      assert json_response(conn, 200) == []
     end
   end
 
   describe "create todo" do
     test "renders todo when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.todo_path(conn, :create), todo: @create_attrs)
-      assert %{"id" => id} = json_response(conn, 201)["data"]
+      conn = post(conn, Routes.todo_path(conn, :create), @create_attrs)
+      assert %{"id" => id} = json_response(conn, 201)
 
       conn = get(conn, Routes.todo_path(conn, :show, id))
 
@@ -44,11 +44,11 @@ defmodule TodobackendWeb.TodoControllerTest do
                "completed" => true,
                "order" => 42,
                "title" => "some title"
-             } = json_response(conn, 200)["data"]
+             } = json_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.todo_path(conn, :create), todo: @invalid_attrs)
+      conn = post(conn, Routes.todo_path(conn, :create), @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -58,7 +58,7 @@ defmodule TodobackendWeb.TodoControllerTest do
 
     test "renders todo when data is valid", %{conn: conn, todo: %Todo{id: id} = todo} do
       conn = put(conn, Routes.todo_path(conn, :update, todo), @update_attrs)
-      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+      assert %{"id" => ^id} = json_response(conn, 200)
 
       conn = get(conn, Routes.todo_path(conn, :show, id))
 
@@ -67,7 +67,7 @@ defmodule TodobackendWeb.TodoControllerTest do
                "completed" => false,
                "order" => 43,
                "title" => "some updated title"
-             } = json_response(conn, 200)["data"]
+             } = json_response(conn, 200)
     end
 
     test "renders errors when data is invalid", %{conn: conn, todo: todo} do

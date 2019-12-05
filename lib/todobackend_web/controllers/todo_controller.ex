@@ -3,8 +3,6 @@ defmodule TodobackendWeb.TodoController do
 
   alias Todobackend.Todos
   alias Todobackend.Todos.Todo
-  require Logger
-
   action_fallback TodobackendWeb.FallbackController
 
   def index(conn, _params) do
@@ -13,7 +11,6 @@ defmodule TodobackendWeb.TodoController do
   end
 
   def create(conn, todo_params) do
-    Logger.info("Debugging #{inspect(todo_params)}")
     with {:ok, %Todo{} = todo} <- Todos.create_todo(todo_params) do
       conn
       |> put_status(:created)
