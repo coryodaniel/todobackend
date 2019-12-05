@@ -22,7 +22,7 @@ setup:
 
 .PHONY: heroku
 heroku:
-	git commit . -m 'deployin'
+	-git commit . -m 'deployin'
 	git push heroku master
 	heroku run mix ecto.migrate
 	
